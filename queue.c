@@ -136,11 +136,15 @@ bool q_delete_mid(struct list_head *head)
         backward = backward->prev;
     }
     if (forward == backward) {
+        element_t *element = list_first_entry(forward->prev, element_t, list);
         list_del(forward);
+        q_release_element(element);
         return true;
     }
     if (forward == backward->prev) {
+        element_t *element = list_first_entry(forward, element_t, list);
         list_del(backward);
+        q_release_element(element);
         return true;
     }
     return true;
